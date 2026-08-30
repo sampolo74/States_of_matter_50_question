@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>States of Matter Challenge &mdash; 50 Questions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ice:#2B6CB0; --water:#0F8C82; --vapor:#D4682A;
+  --ink:#12263A; --soft:#4A6076; --page:#EDF2F6; --card:#fff;
+  --line:#D3DEE7; --right:#0F8C82; --wrong:#C0392B;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink);
+  font-family:"Inter",system-ui,sans-serif;font-size:17px;line-height:1.6}
+.wrap{max-width:780px;margin:0 auto;padding:0 20px 90px}
+
+header{padding:46px 0 4px}
+.eyebrow{font-family:"Space Grotesk",monospace;font-size:13px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--soft);margin:0 0 10px}
+h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(32px,7vw,50px);font-weight:700;
+  line-height:1.05;margin:0 0 14px;letter-spacing:-.025em}
+.sub{margin:0 0 8px;color:var(--soft);max-width:56ch}
+.meta{font-family:"Space Grotesk",monospace;font-size:13px;color:var(--soft);
+  letter-spacing:.05em;margin:18px 0 0}
+
+.thermo{position:sticky;top:0;z-index:20;background:var(--page);
+  padding:14px 0 12px;border-bottom:1px solid var(--line);margin:24px 0 30px}
+.rail{height:9px;border-radius:99px;background:#DCE5EC;overflow:hidden}
+.fillbar{height:100%;width:0;border-radius:99px;
+  background:linear-gradient(90deg,var(--ice),var(--water) 55%,var(--vapor));transition:width .35s ease}
+.railtxt{display:flex;justify-content:space-between;font-family:"Space Grotesk",monospace;
+  font-size:13px;color:var(--soft);margin-top:8px;letter-spacing:.04em}
+
+.sec-head{margin:44px 0 18px;padding-bottom:12px;border-bottom:2px solid var(--ink)}
+.sec-head:first-of-type{margin-top:0}
+.sec-head h2{font-family:"Space Grotesk",sans-serif;font-size:23px;font-weight:700;
+  margin:0 0 4px;letter-spacing:-.01em}
+.sec-head p{margin:0;color:var(--soft);font-size:15px}
+
+.q{background:var(--card);border:1px solid var(--line);border-radius:10px;
+  padding:22px 22px 18px;margin-bottom:14px}
+.qnum{font-family:"Space Grotesk",monospace;font-size:13px;letter-spacing:.1em;
+  color:var(--soft);display:block;margin-bottom:6px}
+.qtext{font-weight:500;margin:0 0 15px}
+.opts{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.opt input{position:absolute;opacity:0;width:0;height:0}
+.opt span{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);
+  border-radius:8px;padding:11px 14px;cursor:pointer;background:#FBFCFD;
+  transition:border-color .15s,background .15s}
+.opt span::before{content:attr(data-l);font-family:"Space Grotesk",monospace;
+  font-weight:700;color:var(--soft);flex:0 0 auto}
+.opt span:hover{border-color:var(--ice);background:#F4F8FC}
+.opt input:checked + span{border-color:var(--ice);background:#E7F0F9}
+.opt input:checked + span::before{color:var(--ice)}
+.opt input:focus-visible + span{outline:3px solid var(--vapor);outline-offset:2px}
+
+.q.nailed{border-color:var(--right)}
+.q.missed{border-color:var(--wrong)}
+.opt.is-right span{border-color:var(--right);background:#E4F3F1}
+.opt.is-right span::before{color:var(--right)}
+.opt.is-wrong span{border-color:var(--wrong);background:#FBEBE9}
+.opt.is-wrong span::before{color:var(--wrong)}
+.graded .opt span,.graded .opt span:hover{cursor:default;border-color:var(--line);background:#FBFCFD}
+.graded .opt.is-right span,.graded .opt.is-right span:hover{border-color:var(--right);background:#E4F3F1}
+.graded .opt.is-wrong span,.graded .opt.is-wrong span:hover{border-color:var(--wrong);background:#FBEBE9}
+.why{margin:14px 0 0;padding:12px 14px;border-left:3px solid var(--ice);
+  background:#F1F6FA;font-size:15px;color:var(--soft)}
+.why b{color:var(--ink);font-weight:600}
+
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+button{font-family:"Space Grotesk",sans-serif;font-size:16px;font-weight:500;
+  border-radius:8px;padding:13px 26px;cursor:pointer;border:1px solid transparent}
+.primary{background:var(--ink);color:#fff}
+.primary:hover{background:#1D3A56}
+.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.ghost:hover{border-color:var(--soft)}
+button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
+.err{color:var(--wrong);font-size:15px;margin:14px 0 0}
+.err:empty{display:none}
+
+.score{background:var(--card);border:1px solid var(--line);border-top:5px solid var(--ice);
+  border-radius:10px;padding:28px;margin-bottom:26px}
+.score[hidden]{display:none}
+.rank{font-family:"Space Grotesk",monospace;font-size:13px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--vapor);margin:0 0 6px}
+.big{font-family:"Space Grotesk",sans-serif;font-size:56px;font-weight:700;
+  line-height:1;margin:0 0 10px;letter-spacing:-.03em}
+.note{margin:0 0 20px;color:var(--soft)}
+.bd{display:grid;gap:10px}
+.bd-row{display:grid;grid-template-columns:1fr 62px;gap:12px;align-items:center;
+  font-size:15px;padding-top:10px;border-top:1px solid var(--line)}
+.bd-name{color:var(--soft)}
+.bd-bar{height:7px;border-radius:99px;background:#DCE5EC;overflow:hidden;margin-top:5px}
+.bd-bar i{display:block;height:100%;background:var(--water);border-radius:99px}
+.bd-num{font-family:"Space Grotesk",monospace;font-weight:700;text-align:right}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media (max-width:520px){body{font-size:16px}.q{padding:18px 16px 14px}}
+@media print{
+  body{background:#fff;font-size:12pt}
+  .thermo,.actions,.err{display:none}
+  .q{break-inside:avoid;page-break-inside:avoid;border-color:#999}
+  .opt span{background:#fff}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">5th grade science &middot; 50 questions</p>
+  <h1>The states of matter challenge</h1>
+  <p class="sub">Five rounds on solids, liquids, gases, and every change in between. Answer them all, then hit the button to see your score, your rank, and exactly which round to study next.</p>
+  <p class="meta">Solid &rarr; liquid &rarr; gas &nbsp;&middot;&nbsp; works offline &nbsp;&middot;&nbsp; nothing is saved or sent anywhere</p>
+</header>
+
+<div class="thermo">
+  <div class="rail"><div class="fillbar" id="fill"></div></div>
+  <div class="railtxt"><span id="count">0 of 50 answered</span><span id="stage">Cold start</span></div>
+</div>
+
+<div class="score" id="score" hidden></div>
+<form id="quiz"></form>
+
+<div class="actions">
+  <button type="button" class="primary" id="check">Check my answers</button>
+  <button type="button" class="ghost" id="reset">Start over</button>
+  <button type="button" class="ghost" id="print">Print</button>
+</div>
+<p class="err" id="err"></p>
+
+</div>
+
+<script id="data" type="application/json">{
+"sections": [
+{
+"name": "Round 1 — Meet the three states",
+"blurb": "Shape, volume, and what each state does inside a container.",
+"questions": [
+{
+"q": "Which state of matter keeps its own shape AND its own volume?",
+"o": [
+"Solid",
+"Liquid",
+"Gas",
+"None of them"
+],
+"a": 0,
+"why": "A solid. A brick is the same shape and size whether it sits on a shelf or in a box."
+},
+{
+"q": "Which state of matter keeps its volume but takes the shape of its container?",
+"o": [
+"Solid",
+"Liquid",
+"Gas",
+"All three"
+],
+"a": 1,
+"why": "A liquid. Pour a cup of milk into a bowl and you still have a cup of milk, just in a new shape."
+},
+{
+"q": "Which state of matter spreads out to fill its whole container?",
+"o": [
+"Solid",
+"Liquid",
+"Gas",
+"Solid and liquid"
+],
+"a": 2,
+"why": "A gas. It does not stop until it has filled every corner of the space it is in."
+},
+{
+"q": "You move a wooden block from a shoebox to a backpack. What changes about the block?",
+"o": [
+"Its shape changes",
+"Its volume changes",
+"Both change",
+"Neither one changes"
+],
+"a": 3,
+"why": "Nothing changes. Solids hold their shape and volume no matter what container they are in."
+},
+{
+"q": "You pour exactly one cup of juice into a huge mixing bowl. How much juice do you have now?",
+"o": [
+"Still one cup",
+"Less than one cup",
+"More than one cup",
+"It depends on the bowl"
+],
+"a": 0,
+"why": "Still one cup. The juice spread out into a new shape, but no juice was added or lost."
+},
+{
+"q": "A balloon full of helium pops in the middle of a classroom. What does the helium do?",
+"o": [
+"It falls to the floor in a pile",
+"It spreads out through the whole room",
+"It stays in a ball where the balloon was",
+"It turns into a liquid"
+],
+"a": 1,
+"why": "Gases spread out to fill their container. In this case the container is the whole room."
+},
+{
+"q": "Which state of matter is easiest to squeeze into a much smaller space?",
+"o": [
+"Solid",
+"Liquid",
+"Gas",
+"They are all the same"
+],
+"a": 2,
+"why": "A gas. There is so much empty space between gas molecules that you can push them closer together."
+},
+{
+"q": "Which of these is a solid?",
+"o": [
+"Milk",
+"The air in a tire",
+"Steam",
+"A penny"
+],
+"a": 3,
+"why": "A penny. It holds its own shape and its own volume."
+},
+{
+"q": "Which of these is a gas?",
+"o": [
+"The air inside a soccer ball",
+"An ice cube",
+"Honey",
+"A wooden pencil"
+],
+"a": 0,
+"why": "The air inside a soccer ball. Air is a gas, even though you cannot see it."
+},
+{
+"q": "Which of these is a liquid?",
+"o": [
+"A rock",
+"Cooking oil",
+"Water vapor",
+"A sugar cube"
+],
+"a": 1,
+"why": "Cooking oil. It keeps its volume but takes the shape of whatever you pour it into."
+}
+]
+},
+{
+"name": "Round 2 — Zoom in on the molecules",
+"blurb": "What the tiny particles are doing inside each state.",
+"questions": [
+{
+"q": "Which statement best describes the molecules in a solid?",
+"o": [
+"They are far apart and move freely",
+"They do not move at all",
+"They are close together but not connected",
+"They are close together and connected"
+],
+"a": 3,
+"why": "Close together and connected. They are locked in place, but they still vibrate."
+},
+{
+"q": "Which statement best describes the molecules in a liquid?",
+"o": [
+"Close together but not connected",
+"Close together and connected",
+"Far apart and connected",
+"Packed in a fixed pattern"
+],
+"a": 0,
+"why": "Close together but not connected. That is why a liquid can flow and pour."
+},
+{
+"q": "Which statement best describes the molecules in a gas?",
+"o": [
+"Close together and connected",
+"Far apart and moving freely",
+"Locked in a fixed pattern",
+"Slowly sliding past each other"
+],
+"a": 1,
+"why": "Far apart and moving freely. Gas molecules zip around with lots of space between them."
+},
+{
+"q": "Do molecules ever stop moving completely?",
+"o": [
+"Yes, when something freezes",
+"Yes, when something sits perfectly still",
+"No, they are always moving",
+"Only solids stop moving"
+],
+"a": 2,
+"why": "Never. Even inside a frozen ice cube, the molecules are vibrating in place."
+},
+{
+"q": "Which state has the MOST empty space between its molecules?",
+"o": [
+"Solid",
+"Liquid",
+"Gas",
+"They are all equal"
+],
+"a": 2,
+"why": "A gas. Its molecules are spread far apart, which is why gases can be squeezed."
+},
+{
+"q": "Which state has its molecules packed together the tightest?",
+"o": [
+"Solid",
+"Liquid",
+"Gas",
+"Liquid and gas tie"
+],
+"a": 0,
+"why": "A solid. The molecules are as close as they can get and held in fixed positions."
+},
+{
+"q": "What does ADDING heat do to the molecules in a substance?",
+"o": [
+"Slows them down and packs them tighter",
+"Makes them move faster and spread apart",
+"Stops them from moving",
+"Turns them into new molecules"
+],
+"a": 1,
+"why": "Heat is energy. More energy means faster movement and more space between molecules."
+},
+{
+"q": "What does REMOVING heat do to the molecules in a substance?",
+"o": [
+"Makes them move faster",
+"Makes them disappear",
+"Makes them slow down and move closer together",
+"Nothing at all"
+],
+"a": 2,
+"why": "Taking heat away slows the molecules down so they can pull closer together."
+},
+{
+"q": "Are the molecules in an ice cube the same as the molecules in steam from a kettle?",
+"o": [
+"No, they are completely different",
+"Only if the ice is very cold",
+"No, steam has extra molecules",
+"Yes, both are water molecules"
+],
+"a": 3,
+"why": "Both are water molecules. Only their arrangement and speed changed, not the molecules themselves."
+},
+{
+"q": "Which statement about molecules in different states is TRUE?",
+"o": [
+"Gas molecules are usually farther apart than liquid molecules",
+"Liquid molecules are connected together",
+"Solid molecules are far apart and move freely",
+"Molecules stop moving when matter changes state"
+],
+"a": 0,
+"why": "Gas molecules have the most space between them. Solid is tightest, liquid is close, gas is spread out."
+}
+]
+},
+{
+"name": "Round 3 — Name that change",
+"blurb": "The vocabulary words for every phase change.",
+"questions": [
+{
+"q": "What is it called when a SOLID changes into a LIQUID?",
+"o": [
+"Freezing",
+"Evaporation",
+"Melting",
+"Condensation"
+],
+"a": 2,
+"why": "Melting. Heat is added until the molecules break free from their fixed spots."
+},
+{
+"q": "What is it called when a LIQUID changes into a SOLID?",
+"o": [
+"Melting",
+"Sublimation",
+"Condensation",
+"Freezing"
+],
+"a": 3,
+"why": "Freezing. Heat is removed until the molecules lock into place."
+},
+{
+"q": "What is it called when a LIQUID changes into a GAS?",
+"o": [
+"Evaporation",
+"Melting",
+"Condensation",
+"Freezing"
+],
+"a": 0,
+"why": "Evaporation. The molecules gain enough energy to break away and spread out."
+},
+{
+"q": "What is it called when a GAS changes into a LIQUID?",
+"o": [
+"Evaporation",
+"Condensation",
+"Sublimation",
+"Melting"
+],
+"a": 1,
+"why": "Condensation. The gas cools, slows down, and the molecules pull back together."
+},
+{
+"q": "What is it called when a SOLID changes straight into a GAS, skipping the liquid step?",
+"o": [
+"Evaporation",
+"Melting",
+"Sublimation",
+"Condensation"
+],
+"a": 2,
+"why": "Sublimation. Dry ice does this, which is why it makes fog instead of a puddle."
+},
+{
+"q": "Which pair of changes BOTH need heat to be added?",
+"o": [
+"Freezing and condensation",
+"Evaporation and freezing",
+"Melting and freezing",
+"Melting and evaporation"
+],
+"a": 3,
+"why": "Melting and evaporation both move matter toward gas, and that always takes added heat."
+},
+{
+"q": "Which pair of changes BOTH happen when heat is removed?",
+"o": [
+"Freezing and condensation",
+"Melting and evaporation",
+"Evaporation and condensation",
+"Melting and sublimation"
+],
+"a": 0,
+"why": "Freezing and condensation both move matter toward solid, and that means losing heat."
+},
+{
+"q": "Boiling is a fast version of which phase change?",
+"o": [
+"Melting",
+"Evaporation",
+"Condensation",
+"Freezing"
+],
+"a": 1,
+"why": "Evaporation. Boiling is just liquid turning to gas quickly all through the liquid."
+},
+{
+"q": "Frost forms directly on a cold window from the water vapor in the air. Gas turned straight into solid. What is this called?",
+"o": [
+"Sublimation",
+"Condensation",
+"Deposition",
+"Freezing"
+],
+"a": 2,
+"why": "Deposition. It is the opposite of sublimation, skipping the liquid step in the other direction."
+},
+{
+"q": "Which of these is NOT a state of matter?",
+"o": [
+"Solid",
+"Liquid",
+"Gas",
+"Melting"
+],
+"a": 3,
+"why": "Melting is a change, not a state. It is what happens BETWEEN two states."
+}
+]
+},
+{
+"name": "Round 4 — Spot it in real life",
+"blurb": "Everyday scenes. Name the change that happened.",
+"questions": [
+{
+"q": "An ice cube is left on the kitchen counter and turns into a puddle. What phase change occurred?",
+"o": [
+"Freezing",
+"Melting",
+"Evaporation",
+"Condensation"
+],
+"a": 1,
+"why": "Melting. The ice absorbed heat from the warm room."
+},
+{
+"q": "A rain puddle on the playground dries up by lunchtime. What happened to the water?",
+"o": [
+"It froze into the ground",
+"It disappeared completely",
+"It evaporated into the air as a gas",
+"It melted into the sidewalk"
+],
+"a": 2,
+"why": "It evaporated. The water is still around, just spread out in the air as invisible vapor."
+},
+{
+"q": "Water droplets appear on the outside of a cold water bottle. Where did they come from?",
+"o": [
+"The bottle is leaking",
+"Water evaporated through the bottle",
+"The plastic melted",
+"Water vapor in the air condensed on the cold surface"
+],
+"a": 3,
+"why": "Condensation. Invisible vapor in the air touched the cold bottle, lost heat, and turned to liquid."
+},
+{
+"q": "You fill an ice tray with water and put it in the freezer overnight. What phase change happens?",
+"o": [
+"Freezing",
+"Evaporation",
+"Melting",
+"Condensation"
+],
+"a": 0,
+"why": "Freezing. The freezer pulls heat out until the water molecules lock into place as ice."
+},
+{
+"q": "A chocolate bar left on a car seat on a hot day turns gooey. What phase change is starting?",
+"o": [
+"Freezing",
+"Melting",
+"Condensation",
+"Sublimation"
+],
+"a": 1,
+"why": "Melting. Heat from the hot car is turning the solid chocolate into a liquid."
+},
+{
+"q": "You breathe on a cold window and a foggy patch appears. What phase change happened?",
+"o": [
+"Evaporation",
+"Melting",
+"Condensation",
+"Freezing"
+],
+"a": 2,
+"why": "Condensation. The warm water vapor in your breath cooled on the glass and became tiny droplets."
+},
+{
+"q": "Wet towels hung on a line outside are completely dry two hours later. What phase change happened?",
+"o": [
+"Condensation",
+"Freezing",
+"Melting",
+"Evaporation"
+],
+"a": 3,
+"why": "Evaporation. The liquid water in the towels turned into water vapor and drifted into the air."
+},
+{
+"q": "A popsicle starts dripping down your hand at the park. What phase change is happening?",
+"o": [
+"Melting",
+"Freezing",
+"Sublimation",
+"Condensation"
+],
+"a": 0,
+"why": "Melting. Your warm hand and the warm air are adding heat to the frozen popsicle."
+},
+{
+"q": "The bathroom mirror fogs up while you take a hot shower. What phase change made the fog?",
+"o": [
+"Evaporation",
+"Condensation",
+"Freezing",
+"Melting"
+],
+"a": 1,
+"why": "Condensation. Water vapor from the hot shower hit the cooler mirror and turned back into liquid."
+},
+{
+"q": "You pour juice into a mold and put it in the freezer to make a juice pop. What phase change turns it solid?",
+"o": [
+"Melting",
+"Condensation",
+"Freezing",
+"Evaporation"
+],
+"a": 2,
+"why": "Freezing. Heat leaves the juice until its molecules lock into a solid."
+}
+]
+},
+{
+"name": "Round 5 — Challenge round",
+"blurb": "The tricky ones. Read carefully before you answer.",
+"questions": [
+{
+"q": "Sand pours out of a bucket almost like water. Is sand a liquid?",
+"o": [
+"No, because each grain is a tiny solid",
+"Yes, because it takes the shape of the bucket",
+"Yes, because it pours",
+"No, because sand has no mass"
+],
+"a": 0,
+"why": "Pouring describes the whole pile, not the material. Each grain keeps its own shape, so sand is a solid."
+},
+{
+"q": "A balloon is blown up and tied shut. What is inside it?",
+"o": [
+"Nothing at all",
+"A gas that has mass and takes up space",
+"Empty space with no matter",
+"A liquid that turned invisible"
+],
+"a": 1,
+"why": "Air is a gas. You cannot see it, but it has mass and takes up space, which is why the balloon stretches."
+},
+{
+"q": "Whipped cream is fluffy and light. What is it mostly made of?",
+"o": [
+"A solid with liquid inside",
+"Three separate solids",
+"Gas bubbles trapped inside a liquid",
+"A gas with no liquid at all"
+],
+"a": 2,
+"why": "It is a foam: tiny gas bubbles trapped in liquid cream. That is what makes it fluffy."
+},
+{
+"q": "Honey pours very slowly compared to water. Does that make honey a solid?",
+"o": [
+"Yes, because it moves slowly",
+"Yes, because it is thick",
+"No, it is actually a gas",
+"No, it is a liquid that just flows slowly"
+],
+"a": 3,
+"why": "Liquid does not mean runny. Honey takes the shape of its container, so it is a liquid."
+},
+{
+"q": "The white cloud you see just above a boiling kettle is actually made of what?",
+"o": [
+"Tiny drops of liquid water",
+"Invisible gas",
+"Solid ice crystals",
+"Smoke"
+],
+"a": 0,
+"why": "Tricky one. True water vapor is invisible. The white cloud is vapor that already cooled and condensed into tiny liquid droplets."
+},
+{
+"q": "Does a gas have mass?",
+"o": [
+"No, gases weigh nothing",
+"Yes, gases have mass even though you cannot see them",
+"Only if the gas is cold",
+"Only heavy gases do"
+],
+"a": 1,
+"why": "Yes. An inflated ball weighs slightly more than an empty one because the air inside has mass."
+},
+{
+"q": "Water is frozen into ice, melted back to water, then boiled into steam. What is true about the material?",
+"o": [
+"It becomes three different substances",
+"It gains new matter each time",
+"It stays the same substance in different states",
+"It is destroyed at the end"
+],
+"a": 2,
+"why": "It is water the whole way through. The molecules rearrange, but the substance never changes."
+},
+{
+"q": "A block of dry ice sits on a table and slowly shrinks, but the table stays completely dry. Why?",
+"o": [
+"It is evaporating very slowly",
+"It is melting into the air",
+"The liquid soaked into the table",
+"It turns straight from solid to gas"
+],
+"a": 3,
+"why": "Sublimation. Dry ice goes straight from solid to gas, so it never leaves a puddle behind."
+},
+{
+"q": "A sealed jar of water is weighed, then frozen solid and weighed again. What happens to its mass?",
+"o": [
+"It stays exactly the same",
+"It gets lighter",
+"It gets heavier",
+"It doubles"
+],
+"a": 0,
+"why": "The mass stays the same. Nothing entered or left the sealed jar. The molecules just rearranged."
+},
+{
+"q": "Your friend says solids are hard, liquids are wet, and gases are hot. What is wrong with that?",
+"o": [
+"Nothing, that is correct",
+"States are about how molecules are arranged, not how something feels",
+"Only the gas part is wrong",
+"Only the solid part is wrong"
+],
+"a": 1,
+"why": "How something feels is not the rule. What matters is how the molecules are arranged and how they move."
+}
+]
+}
+]
+}</script>
+<script>
+const DATA = JSON.parse(document.getElementById("data").textContent);
+const L = ["a","b","c","d"];
+const FLAT = [];
+DATA.sections.forEach((s,si)=> s.questions.forEach(q=> FLAT.push({...q,si})));
+const TOTAL = FLAT.length;
+
+const form=document.getElementById("quiz"), fill=document.getElementById("fill"),
+      count=document.getElementById("count"), stage=document.getElementById("stage"),
+      err=document.getElementById("err"), scoreBox=document.getElementById("score");
+let graded=false;
+
+const STAGES=["Cold start","Warming up","Melting","Flowing","Boiling","Full steam"];
+
+function build(){
+  let n=0, html="";
+  DATA.sections.forEach(s=>{
+    html += `<div class="sec-head"><h2>${s.name}</h2><p>${s.blurb}</p></div>`;
+    s.questions.forEach(item=>{
+      const i=n++;
+      html += `<fieldset class="q" id="q${i}">
+        <legend class="qnum">Question ${i+1}</legend>
+        <p class="qtext">${item.q}</p>
+        <ul class="opts">${item.o.map((t,j)=>`
+          <li class="opt" id="o${i}-${j}"><label>
+            <input type="radio" name="q${i}" value="${j}">
+            <span data-l="${L[j]}.">${t}</span>
+          </label></li>`).join("")}</ul>
+      </fieldset>`;
+    });
+  });
+  form.innerHTML=html;
+}
+
+const picked = i => form.querySelector(`input[name="q${i}"]:checked`);
+const answered = () => FLAT.reduce((n,_,i)=> n + (picked(i)?1:0), 0);
+
+function progress(){
+  const n=answered(), pct=n/TOTAL;
+  count.textContent=`${n} of ${TOTAL} answered`;
+  fill.style.width=(pct*100)+"%";
+  stage.textContent=STAGES[Math.min(STAGES.length-1,Math.floor(pct*STAGES.length))];
+}
+
+form.addEventListener("change",()=>{ if(!graded){progress(); err.textContent="";} });
+
+document.getElementById("check").addEventListener("click",()=>{
+  if(graded) return;
+  const blanks=[];
+  FLAT.forEach((_,i)=>{ if(!picked(i)) blanks.push(i+1); });
+  if(blanks.length){
+    err.textContent = blanks.length===1
+      ? `Question ${blanks[0]} still needs an answer.`
+      : `${blanks.length} still unanswered, starting with question ${blanks[0]}.`;
+    document.getElementById("q"+(blanks[0]-1)).scrollIntoView({behavior:"smooth",block:"center"});
+    return;
+  }
+  err.textContent=""; graded=true;
+  let right=0;
+  const per=DATA.sections.map(()=>0);
+
+  FLAT.forEach((item,i)=>{
+    const chose=Number(picked(i).value), card=document.getElementById("q"+i);
+    card.classList.add("graded");
+    document.getElementById(`o${i}-${item.a}`).classList.add("is-right");
+    if(chose===item.a){ right++; per[item.si]++; card.classList.add("nailed"); }
+    else { card.classList.add("missed"); document.getElementById(`o${i}-${chose}`).classList.add("is-wrong"); }
+    const p=document.createElement("p");
+    p.className="why";
+    p.innerHTML=`<b>${L[item.a]}.</b> ${item.why}`;
+    card.appendChild(p);
+    card.querySelectorAll("input").forEach(el=>el.disabled=true);
+  });
+
+  const pct=Math.round(right/TOTAL*100);
+  const rank = pct===100 ? "Matter master"
+             : pct>=90 ? "Lab chief"
+             : pct>=75 ? "Junior scientist"
+             : pct>=60 ? "Lab assistant"
+             : "Still warming up";
+  const weakest = per.indexOf(Math.min(...per));
+
+  scoreBox.innerHTML=`
+    <p class="rank">${rank}</p>
+    <p class="big">${right} / ${TOTAL}</p>
+    <p class="note">${pct}% correct. ${
+      right===TOTAL ? "A perfect run. Every single round."
+      : `Your toughest round was <b>${DATA.sections[weakest].name}</b>. Scroll down for an explanation under every question you missed.`}</p>
+    <div class="bd">${DATA.sections.map((s,i)=>{
+      const n=s.questions.length;
+      return `<div class="bd-row">
+        <div><div class="bd-name">${s.name}</div>
+          <div class="bd-bar"><i style="width:${per[i]/n*100}%"></i></div></div>
+        <div class="bd-num">${per[i]}/${n}</div></div>`;}).join("")}</div>`;
+  scoreBox.hidden=false;
+  fill.style.width="100%"; count.textContent=`Scored ${right} of ${TOTAL}`; stage.textContent=rank;
+  scoreBox.scrollIntoView({behavior:"smooth",block:"start"});
+});
+
+document.getElementById("reset").addEventListener("click",()=>{
+  graded=false; scoreBox.hidden=true; scoreBox.innerHTML=""; err.textContent="";
+  build(); progress(); window.scrollTo({top:0,behavior:"smooth"});
+});
+document.getElementById("print").addEventListener("click",()=>window.print());
+
+build(); progress();
+</script>
+</body>
+</html>
