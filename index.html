@@ -53,21 +53,38 @@ h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(32px,7vw,50px);font-we
   border-radius:8px;padding:11px 14px;cursor:pointer;background:#FBFCFD;
   transition:border-color .15s,background .15s}
 .opt span::before{content:attr(data-l);font-family:"Space Grotesk",monospace;
-  font-weight:700;color:var(--soft);flex:0 0 auto}
+  font-weight:700;color:var(--soft);flex:0 0 auto;
+  width:25px;height:25px;border-radius:6px;background:#E6EDF3;font-size:14px;
+  display:inline-flex;align-items:center;justify-content:center;text-transform:uppercase}
 .opt span:hover{border-color:var(--ice);background:#F4F8FC}
-.opt input:checked + span{border-color:var(--ice);background:#E7F0F9}
-.opt input:checked + span::before{color:var(--ice)}
+.opt input:checked + span{
+  border-color:var(--ice);border-width:2px;padding:10px 13px;
+  background:#DCEAF8;font-weight:600;color:var(--ink);
+  box-shadow:0 1px 4px rgba(43,108,176,.18)}
+.opt input:checked + span::before{background:var(--ice);color:#fff}
+.opt input:checked + span::after{
+  content:"✓";margin-left:auto;padding-left:10px;color:var(--ice);font-weight:700}
 .opt input:focus-visible + span{outline:3px solid var(--vapor);outline-offset:2px}
 
-.q.nailed{border-color:var(--right)}
-.q.missed{border-color:var(--wrong)}
+.q.answered{border-color:var(--ice);box-shadow:inset 4px 0 0 var(--ice)}
+.q.nailed{border-color:var(--right);box-shadow:inset 4px 0 0 var(--right)}
+.q.missed{border-color:var(--wrong);box-shadow:inset 4px 0 0 var(--wrong)}
 .opt.is-right span{border-color:var(--right);background:#E4F3F1}
-.opt.is-right span::before{color:var(--right)}
+.opt.is-right span::before{background:var(--right);color:#fff}
 .opt.is-wrong span{border-color:var(--wrong);background:#FBEBE9}
-.opt.is-wrong span::before{color:var(--wrong)}
-.graded .opt span,.graded .opt span:hover{cursor:default;border-color:var(--line);background:#FBFCFD}
+.opt.is-wrong span::before{background:var(--wrong);color:#fff}
+.graded .opt span,.graded .opt span:hover{cursor:default;border-color:var(--line);
+  background:#FBFCFD;font-weight:400;border-width:1px;padding:11px 14px;box-shadow:none}
+.graded .opt span::before{background:#E6EDF3;color:var(--soft)}
+.graded .opt span::after{content:none}
 .graded .opt.is-right span,.graded .opt.is-right span:hover{border-color:var(--right);background:#E4F3F1}
+.graded .opt.is-right span::before{background:var(--right);color:#fff}
 .graded .opt.is-wrong span,.graded .opt.is-wrong span:hover{border-color:var(--wrong);background:#FBEBE9}
+.graded .opt.is-wrong span::before{background:var(--wrong);color:#fff}
+.toggle{display:flex;align-items:center;gap:8px;margin-top:10px;
+  font-family:"Space Grotesk",monospace;font-size:13px;color:var(--soft);
+  letter-spacing:.03em;cursor:pointer}
+.toggle input{width:16px;height:16px;accent-color:var(--ice);cursor:pointer}
 .why{margin:14px 0 0;padding:12px 14px;border-left:3px solid var(--ice);
   background:#F1F6FA;font-size:15px;color:var(--soft)}
 .why b{color:var(--ink);font-weight:600}
@@ -122,6 +139,7 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 <div class="thermo">
   <div class="rail"><div class="fillbar" id="fill"></div></div>
   <div class="railtxt"><span id="count">0 of 50 answered</span><span id="stage">Cold start</span></div>
+  <label class="toggle"><input type="checkbox" id="auto" checked> Jump to the next question automatically</label>
 </div>
 
 <div class="score" id="score" hidden></div>
@@ -746,7 +764,7 @@ function build(){
         <ul class="opts">${item.o.map((t,j)=>`
           <li class="opt" id="o${i}-${j}"><label>
             <input type="radio" name="q${i}" value="${j}">
-            <span data-l="${L[j]}.">${t}</span>
+            <span data-l="${L[j]}">${t}</span>
           </label></li>`).join("")}</ul>
       </fieldset>`;
     });
@@ -764,7 +782,23 @@ function progress(){
   stage.textContent=STAGES[Math.min(STAGES.length-1,Math.floor(pct*STAGES.length))];
 }
 
-form.addEventListener("change",()=>{ if(!graded){progress(); err.textContent="";} });
+const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)");
+const glide = el => el.scrollIntoView({behavior: REDUCED.matches ? "auto" : "smooth", block:"center"});
+
+form.addEventListener("change", e=>{
+  if(graded) return;
+  progress();
+  err.textContent="";
+  const i = Number(e.target.name.slice(1));
+  document.getElementById("q"+i).classList.add("answered");
+  if(!document.getElementById("auto").checked) return;
+  setTimeout(()=>{
+    let next = -1;
+    for(let k=i+1; k<TOTAL; k++){ if(!picked(k)){ next=k; break; } }
+    if(next === -1){ for(let k=0; k<i; k++){ if(!picked(k)){ next=k; break; } } }
+    glide(next > -1 ? document.getElementById("q"+next) : document.querySelector(".actions"));
+  }, 340);
+});
 
 document.getElementById("check").addEventListener("click",()=>{
   if(graded) return;
@@ -774,7 +808,7 @@ document.getElementById("check").addEventListener("click",()=>{
     err.textContent = blanks.length===1
       ? `Question ${blanks[0]} still needs an answer.`
       : `${blanks.length} still unanswered, starting with question ${blanks[0]}.`;
-    document.getElementById("q"+(blanks[0]-1)).scrollIntoView({behavior:"smooth",block:"center"});
+    glide(document.getElementById("q"+(blanks[0]-1)));
     return;
   }
   err.textContent=""; graded=true;
@@ -816,12 +850,12 @@ document.getElementById("check").addEventListener("click",()=>{
         <div class="bd-num">${per[i]}/${n}</div></div>`;}).join("")}</div>`;
   scoreBox.hidden=false;
   fill.style.width="100%"; count.textContent=`Scored ${right} of ${TOTAL}`; stage.textContent=rank;
-  scoreBox.scrollIntoView({behavior:"smooth",block:"start"});
+  glide(scoreBox);
 });
 
 document.getElementById("reset").addEventListener("click",()=>{
   graded=false; scoreBox.hidden=true; scoreBox.innerHTML=""; err.textContent="";
-  build(); progress(); window.scrollTo({top:0,behavior:"smooth"});
+  build(); progress(); window.scrollTo({top:0,behavior: REDUCED.matches ? "auto" : "smooth"});
 });
 document.getElementById("print").addEventListener("click",()=>window.print());
 
