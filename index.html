@@ -88,6 +88,12 @@ h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(32px,7vw,50px);font-we
 .why{margin:14px 0 0;padding:12px 14px;border-left:3px solid var(--ice);
   background:#F1F6FA;font-size:15px;color:var(--soft)}
 .why b{color:var(--ink);font-weight:600}
+.why.correct{border-left-color:var(--right);background:#EAF5F3}
+.why.yours{border-left-color:var(--wrong);background:#FBEEEC;margin-bottom:8px}
+.why .tag{display:block;font-family:"Space Grotesk",monospace;font-size:12px;
+  letter-spacing:.11em;text-transform:uppercase;margin-bottom:4px}
+.why.yours .tag{color:var(--wrong)}
+.why.correct .tag{color:var(--right)}
 
 .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
 button{font-family:"Space Grotesk",sans-serif;font-size:16px;font-weight:500;
@@ -169,7 +175,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "None of them"
 ],
 "a": 0,
-"why": "A solid. A brick is the same shape and size whether it sits on a shelf or in a box."
+"why": "A solid. A brick is the same shape and size whether it sits on a shelf or in a box.",
+"w": [
+"",
+"A liquid keeps its volume but not its shape. Pour it somewhere new and it changes shape.",
+"A gas keeps neither one. It spreads out to fill whatever container it is in.",
+"One of them does. A solid holds onto both its shape and its volume."
+]
 },
 {
 "q": "Which state of matter keeps its volume but takes the shape of its container?",
@@ -180,7 +192,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "All three"
 ],
 "a": 1,
-"why": "A liquid. Pour a cup of milk into a bowl and you still have a cup of milk, just in a new shape."
+"why": "A liquid. Pour a cup of milk into a bowl and you still have a cup of milk, just in a new shape.",
+"w": [
+"A solid does not change shape at all. A brick is a brick in any container.",
+"",
+"A gas changes shape and spreads out to fill the whole container, so its volume changes too.",
+"Only a liquid does both halves of this. Solids keep their shape, gases fill everything."
+]
 },
 {
 "q": "Which state of matter spreads out to fill its whole container?",
@@ -191,7 +209,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Solid and liquid"
 ],
 "a": 2,
-"why": "A gas. It does not stop until it has filled every corner of the space it is in."
+"why": "A gas. It does not stop until it has filled every corner of the space it is in.",
+"w": [
+"A solid keeps its own shape and never spreads out.",
+"A liquid settles at the bottom and keeps its volume. It does not fill the space above it.",
+"",
+"Neither one spreads to fill a container. Only a gas does that."
+]
 },
 {
 "q": "You move a wooden block from a shoebox to a backpack. What changes about the block?",
@@ -202,7 +226,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Neither one changes"
 ],
 "a": 3,
-"why": "Nothing changes. Solids hold their shape and volume no matter what container they are in."
+"why": "Nothing changes. Solids hold their shape and volume no matter what container they are in.",
+"w": [
+"Solids hold their shape. The block is identical in the backpack and the shoebox.",
+"Volume is how much space it takes up, and that does not change for a solid either.",
+"Neither one changes. That is exactly what makes it a solid.",
+""
+]
 },
 {
 "q": "You pour exactly one cup of juice into a huge mixing bowl. How much juice do you have now?",
@@ -213,7 +243,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "It depends on the bowl"
 ],
 "a": 0,
-"why": "Still one cup. The juice spread out into a new shape, but no juice was added or lost."
+"why": "Still one cup. The juice spread out into a new shape, but no juice was added or lost.",
+"w": [
+"",
+"No juice was removed. It only spread into a wider, flatter shape.",
+"No juice was added. A bigger bowl does not create more juice.",
+"The bowl changes the shape of the juice, never the amount."
+]
 },
 {
 "q": "A balloon full of helium pops in the middle of a classroom. What does the helium do?",
@@ -224,7 +260,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "It turns into a liquid"
 ],
 "a": 1,
-"why": "Gases spread out to fill their container. In this case the container is the whole room."
+"why": "Gases spread out to fill their container. In this case the container is the whole room.",
+"w": [
+"Gases do not pile up. They spread out in every direction.",
+"",
+"Without the balloon holding it in, nothing keeps a gas in one spot.",
+"That would take enormous cooling, not just popping a balloon."
+]
 },
 {
 "q": "Which state of matter is easiest to squeeze into a much smaller space?",
@@ -235,7 +277,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "They are all the same"
 ],
 "a": 2,
-"why": "A gas. There is so much empty space between gas molecules that you can push them closer together."
+"why": "A gas. There is so much empty space between gas molecules that you can push them closer together.",
+"w": [
+"A solid's molecules are already as tight as they go. There is no space to squeeze out.",
+"Liquid molecules are already touching, so a liquid barely compresses at all.",
+"",
+"They are very different. Gases squeeze easily, solids and liquids hardly at all."
+]
 },
 {
 "q": "Which of these is a solid?",
@@ -246,7 +294,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "A penny"
 ],
 "a": 3,
-"why": "A penny. It holds its own shape and its own volume."
+"why": "A penny. It holds its own shape and its own volume.",
+"w": [
+"Milk takes the shape of its glass, which makes it a liquid.",
+"Air is a gas, even when it is packed under pressure.",
+"Steam is water in its gas state.",
+""
+]
 },
 {
 "q": "Which of these is a gas?",
@@ -257,7 +311,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "A wooden pencil"
 ],
 "a": 0,
-"why": "The air inside a soccer ball. Air is a gas, even though you cannot see it."
+"why": "The air inside a soccer ball. Air is a gas, even though you cannot see it.",
+"w": [
+"",
+"Ice is frozen water, which makes it a solid.",
+"Honey pours and takes the shape of its jar, so it is a liquid.",
+"A pencil holds its own shape and volume, so it is a solid."
+]
 },
 {
 "q": "Which of these is a liquid?",
@@ -268,7 +328,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "A sugar cube"
 ],
 "a": 1,
-"why": "Cooking oil. It keeps its volume but takes the shape of whatever you pour it into."
+"why": "Cooking oil. It keeps its volume but takes the shape of whatever you pour it into.",
+"w": [
+"A rock holds its own shape, which makes it a solid.",
+"",
+"Water vapor is water in its gas state.",
+"A sugar cube keeps its shape, and even loose sugar is made of tiny solid grains."
+]
 }
 ]
 },
@@ -285,7 +351,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "They are close together and connected"
 ],
 "a": 3,
-"why": "Close together and connected. They are locked in place, but they still vibrate."
+"why": "Close together and connected. They are locked in place, but they still vibrate.",
+"w": [
+"That describes a gas. Solid molecules have almost no space between them.",
+"This is the most common mistake in the whole unit. Solid molecules are held in place, but they still vibrate. Nothing ever stops moving.",
+"Close together is right, but not connected is not. In a solid they are held in fixed positions, which is what stops it from flowing.",
+""
+]
 },
 {
 "q": "Which statement best describes the molecules in a liquid?",
@@ -296,7 +368,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Packed in a fixed pattern"
 ],
 "a": 0,
-"why": "Close together but not connected. That is why a liquid can flow and pour."
+"why": "Close together but not connected. That is why a liquid can flow and pour.",
+"w": [
+"",
+"Connected describes a solid. If liquid molecules were connected, a liquid could not pour.",
+"Liquid molecules are close enough to touch, not far apart.",
+"A fixed pattern is a solid. Liquid molecules slide around freely."
+]
 },
 {
 "q": "Which statement best describes the molecules in a gas?",
@@ -307,7 +385,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Slowly sliding past each other"
 ],
 "a": 1,
-"why": "Far apart and moving freely. Gas molecules zip around with lots of space between them."
+"why": "Far apart and moving freely. Gas molecules zip around with lots of space between them.",
+"w": [
+"That is a solid. Gas molecules have a lot of space between them.",
+"",
+"Locked in place is a solid. A gas is the least locked down of all three.",
+"Sliding past each other describes a liquid. Gas molecules fly, they do not slide."
+]
 },
 {
 "q": "Do molecules ever stop moving completely?",
@@ -318,7 +402,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Only solids stop moving"
 ],
 "a": 2,
-"why": "Never. Even inside a frozen ice cube, the molecules are vibrating in place."
+"why": "Never. Even inside a frozen ice cube, the molecules are vibrating in place.",
+"w": [
+"Freezing slows molecules way down, but it never stops them. Ice molecules still vibrate.",
+"An object can look perfectly still while its molecules move fast inside it.",
+"",
+"Solids are the slowest of the three, but their molecules still vibrate in place."
+]
 },
 {
 "q": "Which state has the MOST empty space between its molecules?",
@@ -329,7 +419,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "They are all equal"
 ],
 "a": 2,
-"why": "A gas. Its molecules are spread far apart, which is why gases can be squeezed."
+"why": "A gas. Its molecules are spread far apart, which is why gases can be squeezed.",
+"w": [
+"A solid has the least space. Its molecules are packed as close as they can get.",
+"Liquid molecules are touching, with only a little room to slide.",
+"",
+"They are very different, and that difference is what makes the three states behave differently."
+]
 },
 {
 "q": "Which state has its molecules packed together the tightest?",
@@ -340,7 +436,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Liquid and gas tie"
 ],
 "a": 0,
-"why": "A solid. The molecules are as close as they can get and held in fixed positions."
+"why": "A solid. The molecules are as close as they can get and held in fixed positions.",
+"w": [
+"",
+"Liquid molecules are close, but a solid packs them tighter and holds them still.",
+"A gas has the most space between molecules, not the least.",
+"They do not tie. Liquid is in the middle and gas is the loosest by far."
+]
 },
 {
 "q": "What does ADDING heat do to the molecules in a substance?",
@@ -351,7 +453,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Turns them into new molecules"
 ],
 "a": 1,
-"why": "Heat is energy. More energy means faster movement and more space between molecules."
+"why": "Heat is energy. More energy means faster movement and more space between molecules.",
+"w": [
+"That is what removing heat does, not adding it.",
+"",
+"Nothing ever stops molecules, and heat does the opposite of slowing them down.",
+"The molecules stay exactly the same. Only their speed and spacing change."
+]
 },
 {
 "q": "What does REMOVING heat do to the molecules in a substance?",
@@ -362,7 +470,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Nothing at all"
 ],
 "a": 2,
-"why": "Taking heat away slows the molecules down so they can pull closer together."
+"why": "Taking heat away slows the molecules down so they can pull closer together.",
+"w": [
+"Faster is what adding heat does. This question takes heat away.",
+"Molecules never disappear. Cooling only slows them down.",
+"",
+"Removing heat changes plenty. It is how liquid water becomes ice."
+]
 },
 {
 "q": "Are the molecules in an ice cube the same as the molecules in steam from a kettle?",
@@ -373,7 +487,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Yes, both are water molecules"
 ],
 "a": 3,
-"why": "Both are water molecules. Only their arrangement and speed changed, not the molecules themselves."
+"why": "Both are water molecules. Only their arrangement and speed changed, not the molecules themselves.",
+"w": [
+"They are the same molecules either way. Only the arrangement and speed changed.",
+"Temperature changes how fast molecules move, not what they are.",
+"No molecules get added. Boiling only spreads out the ones already there.",
+""
+]
 },
 {
 "q": "Which statement about molecules in different states is TRUE?",
@@ -384,7 +504,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Molecules stop moving when matter changes state"
 ],
 "a": 0,
-"why": "Gas molecules have the most space between them. Solid is tightest, liquid is close, gas is spread out."
+"why": "Gas molecules have the most space between them. Solid is tightest, liquid is close, gas is spread out.",
+"w": [
+"",
+"Liquid molecules touch but are not connected. That is why liquids flow.",
+"That describes a gas. Solid molecules are packed tight and held in place.",
+"Molecules never stop moving, and during a change they are moving more than usual."
+]
 }
 ]
 },
@@ -401,7 +527,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Condensation"
 ],
 "a": 2,
-"why": "Melting. Heat is added until the molecules break free from their fixed spots."
+"why": "Melting. Heat is added until the molecules break free from their fixed spots.",
+"w": [
+"Freezing is the opposite: liquid turning into solid.",
+"Evaporation is liquid to gas, one step further along.",
+"",
+"Condensation is gas to liquid, heading the other direction."
+]
 },
 {
 "q": "What is it called when a LIQUID changes into a SOLID?",
@@ -412,7 +544,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Freezing"
 ],
 "a": 3,
-"why": "Freezing. Heat is removed until the molecules lock into place."
+"why": "Freezing. Heat is removed until the molecules lock into place.",
+"w": [
+"Melting is the opposite: solid turning into liquid.",
+"Sublimation goes solid straight to gas, skipping liquid entirely.",
+"Condensation is gas to liquid, not liquid to solid.",
+""
+]
 },
 {
 "q": "What is it called when a LIQUID changes into a GAS?",
@@ -423,7 +561,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Freezing"
 ],
 "a": 0,
-"why": "Evaporation. The molecules gain enough energy to break away and spread out."
+"why": "Evaporation. The molecules gain enough energy to break away and spread out.",
+"w": [
+"",
+"Melting is solid to liquid, one step earlier than this.",
+"Condensation is the opposite: gas turning back into liquid.",
+"Freezing is liquid to solid, the other direction entirely."
+]
 },
 {
 "q": "What is it called when a GAS changes into a LIQUID?",
@@ -434,7 +578,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Melting"
 ],
 "a": 1,
-"why": "Condensation. The gas cools, slows down, and the molecules pull back together."
+"why": "Condensation. The gas cools, slows down, and the molecules pull back together.",
+"w": [
+"Evaporation is the opposite: liquid turning into gas.",
+"",
+"Sublimation goes solid straight to gas. This one starts with a gas.",
+"Melting is solid to liquid, not gas to liquid."
+]
 },
 {
 "q": "What is it called when a SOLID changes straight into a GAS, skipping the liquid step?",
@@ -445,7 +595,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Condensation"
 ],
 "a": 2,
-"why": "Sublimation. Dry ice does this, which is why it makes fog instead of a puddle."
+"why": "Sublimation. Dry ice does this, which is why it makes fog instead of a puddle.",
+"w": [
+"Evaporation starts with a liquid. This change starts with a solid.",
+"Melting would leave a puddle behind. This change never makes a liquid at all.",
+"",
+"Condensation goes gas to liquid, the opposite direction."
+]
 },
 {
 "q": "Which pair of changes BOTH need heat to be added?",
@@ -456,7 +612,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Melting and evaporation"
 ],
 "a": 3,
-"why": "Melting and evaporation both move matter toward gas, and that always takes added heat."
+"why": "Melting and evaporation both move matter toward gas, and that always takes added heat.",
+"w": [
+"Both of those release heat instead of taking it in.",
+"Evaporation needs heat added, but freezing needs heat removed. They go opposite ways.",
+"Melting needs heat added and freezing needs it removed. They are opposites.",
+""
+]
 },
 {
 "q": "Which pair of changes BOTH happen when heat is removed?",
@@ -467,7 +629,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Melting and sublimation"
 ],
 "a": 0,
-"why": "Freezing and condensation both move matter toward solid, and that means losing heat."
+"why": "Freezing and condensation both move matter toward solid, and that means losing heat.",
+"w": [
+"",
+"Both of those need heat added, not removed.",
+"Evaporation needs heat added, condensation needs heat removed. Opposite directions.",
+"Both of those need heat added, and sublimation needs a lot of it."
+]
 },
 {
 "q": "Boiling is a fast version of which phase change?",
@@ -478,7 +646,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Freezing"
 ],
 "a": 1,
-"why": "Evaporation. Boiling is just liquid turning to gas quickly all through the liquid."
+"why": "Evaporation. Boiling is just liquid turning to gas quickly all through the liquid.",
+"w": [
+"Melting turns a solid into a liquid. Boiling starts with a liquid.",
+"",
+"Condensation makes liquid out of gas. Boiling does the reverse.",
+"Freezing removes heat. Boiling adds a great deal of it."
+]
 },
 {
 "q": "Frost forms directly on a cold window from the water vapor in the air. Gas turned straight into solid. What is this called?",
@@ -489,7 +663,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Freezing"
 ],
 "a": 2,
-"why": "Deposition. It is the opposite of sublimation, skipping the liquid step in the other direction."
+"why": "Deposition. It is the opposite of sublimation, skipping the liquid step in the other direction.",
+"w": [
+"Sublimation is the reverse of this: solid going straight to gas.",
+"Condensation would make liquid droplets first. Frost forms as solid ice directly.",
+"",
+"Freezing starts with a liquid. Here the water was already a gas in the air."
+]
 },
 {
 "q": "Which of these is NOT a state of matter?",
@@ -500,7 +680,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Melting"
 ],
 "a": 3,
-"why": "Melting is a change, not a state. It is what happens BETWEEN two states."
+"why": "Melting is a change, not a state. It is what happens BETWEEN two states.",
+"w": [
+"Solid is a real state of matter.",
+"Liquid is a real state of matter.",
+"Gas is a real state of matter.",
+""
+]
 }
 ]
 },
@@ -517,7 +703,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Condensation"
 ],
 "a": 1,
-"why": "Melting. The ice absorbed heat from the warm room."
+"why": "Melting. The ice absorbed heat from the warm room.",
+"w": [
+"Freezing needs heat removed. A warm counter adds heat instead.",
+"",
+"Evaporation makes a gas. This left behind a puddle of liquid.",
+"Condensation makes liquid out of a gas. This started as a solid."
+]
 },
 {
 "q": "A rain puddle on the playground dries up by lunchtime. What happened to the water?",
@@ -528,7 +720,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "It melted into the sidewalk"
 ],
 "a": 2,
-"why": "It evaporated. The water is still around, just spread out in the air as invisible vapor."
+"why": "It evaporated. The water is still around, just spread out in the air as invisible vapor.",
+"w": [
+"Freezing needs cold. This happened on a warm day.",
+"Matter never disappears. The water is still nearby as invisible vapor.",
+"",
+"Melting turns a solid into a liquid, and the puddle was already liquid."
+]
 },
 {
 "q": "Water droplets appear on the outside of a cold water bottle. Where did they come from?",
@@ -539,7 +737,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Water vapor in the air condensed on the cold surface"
 ],
 "a": 3,
-"why": "Condensation. Invisible vapor in the air touched the cold bottle, lost heat, and turned to liquid."
+"why": "Condensation. Invisible vapor in the air touched the cold bottle, lost heat, and turned to liquid.",
+"w": [
+"Droplets form even on a perfectly sealed bottle with no leak at all.",
+"Water cannot pass through the plastic, and evaporation would take water away, not add it.",
+"The plastic is unchanged. It was simply cold enough to cool the air touching it.",
+""
+]
 },
 {
 "q": "You fill an ice tray with water and put it in the freezer overnight. What phase change happens?",
@@ -550,7 +754,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Condensation"
 ],
 "a": 0,
-"why": "Freezing. The freezer pulls heat out until the water molecules lock into place as ice."
+"why": "Freezing. The freezer pulls heat out until the water molecules lock into place as ice.",
+"w": [
+"",
+"Evaporation turns a liquid into a gas. A freezer does the opposite.",
+"Melting turns a solid into a liquid. This starts with liquid water.",
+"Condensation makes a liquid from a gas, not a solid from a liquid."
+]
 },
 {
 "q": "A chocolate bar left on a car seat on a hot day turns gooey. What phase change is starting?",
@@ -561,7 +771,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Sublimation"
 ],
 "a": 1,
-"why": "Melting. Heat from the hot car is turning the solid chocolate into a liquid."
+"why": "Melting. Heat from the hot car is turning the solid chocolate into a liquid.",
+"w": [
+"Freezing needs heat removed. A hot car adds heat.",
+"",
+"Condensation involves a gas, and the chocolate started out solid.",
+"Sublimation skips the liquid step. This chocolate is clearly going gooey and liquid."
+]
 },
 {
 "q": "You breathe on a cold window and a foggy patch appears. What phase change happened?",
@@ -572,7 +788,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Freezing"
 ],
 "a": 2,
-"why": "Condensation. The warm water vapor in your breath cooled on the glass and became tiny droplets."
+"why": "Condensation. The warm water vapor in your breath cooled on the glass and became tiny droplets.",
+"w": [
+"Evaporation turns liquid into gas. Here a gas turned into liquid.",
+"Melting needs a solid to start with. Your breath carries water vapor, a gas.",
+"",
+"Freezing would leave ice. The window got wet, not frosty."
+]
 },
 {
 "q": "Wet towels hung on a line outside are completely dry two hours later. What phase change happened?",
@@ -583,7 +805,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Evaporation"
 ],
 "a": 3,
-"why": "Evaporation. The liquid water in the towels turned into water vapor and drifted into the air."
+"why": "Evaporation. The liquid water in the towels turned into water vapor and drifted into the air.",
+"w": [
+"Condensation would make the towels wetter, not drier.",
+"Freezing would leave you with stiff, icy towels.",
+"Melting needs a solid to start. The towels were soaked with liquid water.",
+""
+]
 },
 {
 "q": "A popsicle starts dripping down your hand at the park. What phase change is happening?",
@@ -594,7 +822,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Condensation"
 ],
 "a": 0,
-"why": "Melting. Your warm hand and the warm air are adding heat to the frozen popsicle."
+"why": "Melting. Your warm hand and the warm air are adding heat to the frozen popsicle.",
+"w": [
+"",
+"Freezing is what made the popsicle in the first place. Now heat is being added.",
+"Sublimation goes straight to gas with no drips at all.",
+"Condensation makes liquid out of a gas. This liquid came from the solid popsicle."
+]
 },
 {
 "q": "The bathroom mirror fogs up while you take a hot shower. What phase change made the fog?",
@@ -605,7 +839,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Melting"
 ],
 "a": 1,
-"why": "Condensation. Water vapor from the hot shower hit the cooler mirror and turned back into liquid."
+"why": "Condensation. Water vapor from the hot shower hit the cooler mirror and turned back into liquid.",
+"w": [
+"Evaporation happened inside the shower to make the vapor. The fog on the mirror is the next step.",
+"",
+"Freezing would leave ice, and a hot shower is the opposite of cold.",
+"Melting starts with a solid, and there was no solid involved here."
+]
 },
 {
 "q": "You pour juice into a mold and put it in the freezer to make a juice pop. What phase change turns it solid?",
@@ -616,7 +856,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Evaporation"
 ],
 "a": 2,
-"why": "Freezing. Heat leaves the juice until its molecules lock into a solid."
+"why": "Freezing. Heat leaves the juice until its molecules lock into a solid.",
+"w": [
+"Melting is the opposite, and it is what happens if you leave the pop out later.",
+"Condensation involves a gas. The juice was already a liquid.",
+"",
+"Evaporation would turn the juice into a gas, not a solid."
+]
 }
 ]
 },
@@ -633,7 +879,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "No, because sand has no mass"
 ],
 "a": 0,
-"why": "Pouring describes the whole pile, not the material. Each grain keeps its own shape, so sand is a solid."
+"why": "Pouring describes the whole pile, not the material. Each grain keeps its own shape, so sand is a solid.",
+"w": [
+"",
+"The whole pile takes the shape of the bucket, but each individual grain does not.",
+"Pouring describes how the pile moves, not what the material is. Look at one single grain.",
+"Sand definitely has mass. That is not the reason it counts as a solid."
+]
 },
 {
 "q": "A balloon is blown up and tied shut. What is inside it?",
@@ -644,7 +896,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "A liquid that turned invisible"
 ],
 "a": 1,
-"why": "Air is a gas. You cannot see it, but it has mass and takes up space, which is why the balloon stretches."
+"why": "Air is a gas. You cannot see it, but it has mass and takes up space, which is why the balloon stretches.",
+"w": [
+"If there were nothing inside, the balloon would stay flat.",
+"",
+"Air is matter. Invisible does not mean empty.",
+"Air was a gas before you blew it in and it is still a gas afterward."
+]
 },
 {
 "q": "Whipped cream is fluffy and light. What is it mostly made of?",
@@ -655,7 +913,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "A gas with no liquid at all"
 ],
 "a": 2,
-"why": "It is a foam: tiny gas bubbles trapped in liquid cream. That is what makes it fluffy."
+"why": "It is a foam: tiny gas bubbles trapped in liquid cream. That is what makes it fluffy.",
+"w": [
+"There is no solid part. It is liquid cream whipped full of air.",
+"Nothing in whipped cream is a solid.",
+"",
+"There is definitely liquid. The cream itself is the liquid holding those bubbles."
+]
 },
 {
 "q": "Honey pours very slowly compared to water. Does that make honey a solid?",
@@ -666,7 +930,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "No, it is a liquid that just flows slowly"
 ],
 "a": 3,
-"why": "Liquid does not mean runny. Honey takes the shape of its container, so it is a liquid."
+"why": "Liquid does not mean runny. Honey takes the shape of its container, so it is a liquid.",
+"w": [
+"Speed is not the test. The test is whether it takes the shape of its container.",
+"Thick liquids are still liquids. Thickness is not what makes something solid.",
+"Honey has a fixed volume and you can pour it. It is nowhere close to a gas.",
+""
+]
 },
 {
 "q": "The white cloud you see just above a boiling kettle is actually made of what?",
@@ -677,7 +947,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Smoke"
 ],
 "a": 0,
-"why": "Tricky one. True water vapor is invisible. The white cloud is vapor that already cooled and condensed into tiny liquid droplets."
+"why": "Tricky one. True water vapor is invisible. The white cloud is vapor that already cooled and condensed into tiny liquid droplets.",
+"w": [
+"",
+"True water vapor really is invisible. If you can see it, it has already condensed.",
+"Ice crystals would need freezing cold, and this is right above boiling water.",
+"Nothing is burning, so there is no smoke. It is water either way."
+]
 },
 {
 "q": "Does a gas have mass?",
@@ -688,7 +964,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Only heavy gases do"
 ],
 "a": 1,
-"why": "Yes. An inflated ball weighs slightly more than an empty one because the air inside has mass."
+"why": "Yes. An inflated ball weighs slightly more than an empty one because the air inside has mass.",
+"w": [
+"All matter has mass, gases included. An inflated ball weighs more than a flat one.",
+"",
+"Temperature has nothing to do with whether something has mass.",
+"Every gas has mass, even the very light ones like helium."
+]
 },
 {
 "q": "Water is frozen into ice, melted back to water, then boiled into steam. What is true about the material?",
@@ -699,7 +981,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "It is destroyed at the end"
 ],
 "a": 2,
-"why": "It is water the whole way through. The molecules rearrange, but the substance never changes."
+"why": "It is water the whole way through. The molecules rearrange, but the substance never changes.",
+"w": [
+"Ice, water, and steam are all the same substance. Only the arrangement changed.",
+"No matter gets added. The same molecules are simply spread out differently.",
+"",
+"Matter is not destroyed. The steam is still water, just invisible."
+]
 },
 {
 "q": "A block of dry ice sits on a table and slowly shrinks, but the table stays completely dry. Why?",
@@ -710,7 +998,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "It turns straight from solid to gas"
 ],
 "a": 3,
-"why": "Sublimation. Dry ice goes straight from solid to gas, so it never leaves a puddle behind."
+"why": "Sublimation. Dry ice goes straight from solid to gas, so it never leaves a puddle behind.",
+"w": [
+"Evaporation starts with a liquid, and there is no liquid here at any point.",
+"Melting would make a liquid first. Dry ice never does.",
+"The table stays completely dry, so no liquid ever existed to soak in.",
+""
+]
 },
 {
 "q": "A sealed jar of water is weighed, then frozen solid and weighed again. What happens to its mass?",
@@ -721,7 +1015,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "It doubles"
 ],
 "a": 0,
-"why": "The mass stays the same. Nothing entered or left the sealed jar. The molecules just rearranged."
+"why": "The mass stays the same. Nothing entered or left the sealed jar. The molecules just rearranged.",
+"w": [
+"",
+"Nothing escaped, because the jar is sealed shut.",
+"Nothing was added. Freezing does not create matter.",
+"Mass does not multiply. The same molecules are just arranged differently."
+]
 },
 {
 "q": "Your friend says solids are hard, liquids are wet, and gases are hot. What is wrong with that?",
@@ -732,7 +1032,13 @@ button:focus-visible{outline:3px solid var(--vapor);outline-offset:2px}
 "Only the solid part is wrong"
 ],
 "a": 1,
-"why": "How something feels is not the rule. What matters is how the molecules are arranged and how they move."
+"why": "How something feels is not the rule. What matters is how the molecules are arranged and how they move.",
+"w": [
+"All three parts are wrong as rules. Steel wool is a solid but not hard, and gases can be freezing cold.",
+"",
+"The gas part is wrong, but so are the other two. Not every solid is hard.",
+"The solid part is wrong, but the liquid and gas parts are wrong too."
+]
 }
 ]
 }
@@ -821,10 +1127,17 @@ document.getElementById("check").addEventListener("click",()=>{
     document.getElementById(`o${i}-${item.a}`).classList.add("is-right");
     if(chose===item.a){ right++; per[item.si]++; card.classList.add("nailed"); }
     else { card.classList.add("missed"); document.getElementById(`o${i}-${chose}`).classList.add("is-wrong"); }
-    const p=document.createElement("p");
-    p.className="why";
-    p.innerHTML=`<b>${L[item.a]}.</b> ${item.why}`;
-    card.appendChild(p);
+
+    if(chose !== item.a){
+      const bad=document.createElement("p");
+      bad.className="why yours";
+      bad.innerHTML=`<span class="tag">You chose ${L[chose]}</span>${item.w[chose]}`;
+      card.appendChild(bad);
+    }
+    const good=document.createElement("p");
+    good.className="why correct";
+    good.innerHTML=`<span class="tag">${chose===item.a ? "Correct" : "The answer is "+L[item.a]}</span>${item.why}`;
+    card.appendChild(good);
     card.querySelectorAll("input").forEach(el=>el.disabled=true);
   });
 
